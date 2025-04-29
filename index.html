@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Saludo gRPC</title>
+</head>
+<body>
+<h2>Saludo personalizado</h2>
+<form id="saludoForm">
+    Nombre: <input type="text" name="nombre"><br>
+    Apellido: <input type="text" name="apellido"><br>
+    <button type="submit">Enviar</button>
+</form>
+<div id="respuesta"></div>
+
+<script>
+    document.getElementById('saludoForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const response = await fetch("SaludoServlet", {
+            method: "POST",
+            body: formData
+        });
+        const json = await response.json();
+        document.getElementById("respuesta").innerText = json.saludo;
+    };
+</script>
+</body>
+</html>
